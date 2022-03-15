@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -12,14 +12,17 @@ export const App = () => {
 
   const handleOnSubimt = () => {
     if (!text) return;
-
     const newTodo: Todo = {
       value: text,
     };
-
     setTodos([newTodo, ...todos]);
     setText("");
   };
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
   return (
     <div>
       <form
@@ -28,11 +31,7 @@ export const App = () => {
           handleOnSubimt();
         }}
       >
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+        <input type="text" value={text} onChange={(e) => handleOnChange(e)} />
         <input type="submit" value="追加" onSubmit={handleOnSubimt} />
       </form>
     </div>
