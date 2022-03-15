@@ -4,6 +4,7 @@ import "./App.css";
 
 type Todo = {
   value: string;
+  readonly id: number;
 };
 
 export const App = () => {
@@ -14,6 +15,7 @@ export const App = () => {
     if (!text) return;
     const newTodo: Todo = {
       value: text,
+      id: new Date().getTime(),
     };
     setTodos([newTodo, ...todos]);
     setText("");
@@ -34,6 +36,11 @@ export const App = () => {
         <input type="text" value={text} onChange={(e) => handleOnChange(e)} />
         <input type="submit" value="追加" onSubmit={handleOnSubimt} />
       </form>
+      <ul>
+        {todos.map((todo) => {
+          return <li key={todo.id}>{todo.value}</li>;
+        })}
+      </ul>
     </div>
   );
 };
